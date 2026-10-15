@@ -10,23 +10,34 @@ public class RemoveKLastNode {
         head.next.next.next.next.next = new Node(6);
         head.next.next.next.next.next.next = new Node(7);
 
-        int k = 2;
+        int k = 7;
+        Node headNode = removeKLastNode(k, head);
+        System.out.println(headNode.data);
+
+    }
+
+    private static Node removeKLastNode(int k, Node head) {
         Node dummy = new Node(100);
         dummy.next = head;
-        Node headPointer = dummy;
+        Node leaderpointer = dummy;
         Node trailPointer = dummy;
 
         while (k > 0) {
-            headPointer = headPointer.next;
+            leaderpointer = leaderpointer.next;
+            if (leaderpointer == null) {
+                return head;
+            }
             k--;
         }
 
-        while (headPointer.next != null) {
-            headPointer = headPointer.next;
+        while (leaderpointer.next != null) {
+            leaderpointer = leaderpointer.next;
             trailPointer = trailPointer.next;
         }
 
         trailPointer.next = trailPointer.next.next;
+
+        return dummy.next;
 
     }
 }
